@@ -1,0 +1,15 @@
+When testing plugin alwyes use clean instance (no vimrc, noplugins)
+There is 2 test runners:
+
+test_runner_for_test_reco.py -> testing all Reco methods
+test_runner_for_test_reco_au.py -> testing Reco API in auto-commands
+They are sepereated and must be tested in seperate vim instance as 
+auto-commands could have impact on buffers and break methods 
+
+Default directory for backups and swaps is './test_files' so its important
+to run test_cases from test directory or modified test_cases to match
+your preference
+
+While in test directory run those commands to preform tests:
+vim  -u NONE -N --noplugin -c 'pyfile test_runner_for_test_reco.py'
+vim  -u NONE -N --noplugin -c 'pyfile test_runner_for_test_reco_au.py'
