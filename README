@@ -1,0 +1,15 @@
+Description:
+Plugin was completely re-written in python. Below you have video presentation of 
+plugin showing difference in Vim recovery with and without Reco plugin. 
+
+http://www.youtube.com/watch?v=NrJ87pENIX4 
+
+See reco docs for more details
+ 
+Install details:
+You can source Reco directly from .vimrc as you can see in video 
+Or use any plugin manager i.e pathogen 
+Only setting you probably would like to change is backup_dir 
+Set in .vimrc 
+py reco.backup_dir=<your new dir> #default is your home folder 
+or you  can change path in reco.vim
