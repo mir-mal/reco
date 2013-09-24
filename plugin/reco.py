@@ -1,6 +1,6 @@
 # ============================================================================
 # File:        reco.py
-# Description: Reco automates Vim recovery from swap file process
+# Description: Reco backup and recovery solution for Vim
 # Maintainer:  Mirek Malinowski <malinowski.miroslaw@yahoo.com>
 # License:     GPLv2+ -- look it up.
 #
@@ -68,6 +68,14 @@ buffer is unnamed if yes set name"""
         last_buf_nr = int(vim.eval('bufnr("$")'))
         buf = vim.buffers[last_buf_nr]
         self._set_name_if_unnamed_buffer(buf)
+
+    def check_filename_after_write(self):
+        """When we writing unnamed buffer, set name = filename"""
+        match = re.search(self.buffer_pattern,\
+                vim.current.window.buffer.name)
+        if match:
+            last_buf_nr = int(vim.eval('bufnr("$")'))
+            vim.current.buffer = vim.buffers[last_buf_nr]
 
     def vim_enter_buffers_check(self):
         """First set vim_entered flag, then check if session was recovered if
@@ -313,6 +321,7 @@ if some of files not exists just print messg in vim but continue."""
         self._file_recovery_au()
         self._buf_win_enter_check_swapfile_au()
         self._buf_add_file_recover()
+        self._buf_write_post_check_filename_after_write()
 
     def _add_auto_group_reco(self):
         vim.command('augroup Reco')
@@ -320,6 +329,11 @@ if some of files not exists just print messg in vim but continue."""
     def _remove_auto_group_reco(self):
         """Remove whole auto group Reco"""
         vim.command('au! Reco')
+    
+    def _buf_write_post_check_filename_after_write(self):
+        """If unnamed buffer after write set buffer name = filename"""
+        vim.command(self._add_au_cmd % \
+                ('BufWritePost','reco.check_filename_after_write()'))
 
     def _buf_add_file_recover(self):
         vim.command(self._add_au_cmd % \

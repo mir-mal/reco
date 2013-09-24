@@ -1,6 +1,6 @@
 " ============================================================================
 " File:        reco.vim
-" Description: Reco automates Vim recovery from swap file process
+" Description: Reco backup and recovery solution for Vim
 " Maintainer:  Mirek Malinowski <malinowski.miroslaw@yahoo.com>
 " License:     GPLv2+ -- look it up.
 "
